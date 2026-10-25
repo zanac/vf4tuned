@@ -23,6 +23,7 @@ normal CHD that Flycast loads in place of the original one.
 | Character select, mode select (Normal / Challenge) | English, checked in the emulator |
 | Challenge Mode: mission objectives (~100), HUD, result texts, pause dialog | English, checked in the emulator |
 | Challenge Mode: route selection title and instructions | English, checked in the emulator |
+| Offline settings (network and card off) | `nvram/vf4tuned.zip.nvmem`, checked in the emulator |
 | Card dialogs (insert, save, update, copy, errors…), ~90 lines | English, not reachable without a card |
 | VF.NET / Quest / network messages | English, partly checked (network status) |
 | Card statistics labels, VF.NET rival bookmark hint, network badges | English graphics, not reachable without a card/network |
@@ -59,6 +60,44 @@ All the redrawn textures, original on the left and English on the right
 (upright, on a dark background):
 
 ![graphics before and after](screenshots/graphics_before_after.png)
+
+## Playing offline (no network, no card)
+
+Out of the box the game is set up for VF.NET: at every boot it waits about
+a minute for the network ("NOW NETWORK CHECKING"), and the character
+select shows "Not connected to the network". The operator manual
+(service manual 420-6621-0036J, pages 22 and 25–26) gives the settings for
+a cabinet without VF.NET:
+
+| Menu | Item | Value |
+|---|---|---|
+| SYSTEM MENU → NETWORK SETTING | NETWORK TYPE | NONE |
+| GAME TEST MODE → GAME ASSIGNMENTS | NETWORK | OFF |
+| GAME TEST MODE → GAME ASSIGNMENTS | CARD 1P USE | OFF |
+| GAME TEST MODE → GAME ASSIGNMENTS | CARD 2P USE | OFF |
+| GAME TEST MODE → GAME ASSIGNMENTS | CARD START | OFF (default) |
+
+`nvram/vf4tuned.zip.nvmem` is Flycast's backup RAM with exactly these
+settings (made with the menus above, nothing patched). Copy it to the
+Flycast save folder before starting the game:
+
+- RetroArch: `saves/Flycast/reicast/vf4tuned.zip.nvmem`
+  (or `saves/reicast/` when saves are not sorted by core)
+- standalone Flycast: its data folder, next to the other `.nvmem` files
+
+With it the boot check takes 2 frames instead of 60 seconds (the network
+status screen reads "(GAME) NETWORK OFF"; Start skips it) and the
+character select has no network message and no card icons.
+
+The other game settings in the file are the ones Flycast starts with for
+this set (enemy level NORMAL, 3 rounds, 45 seconds, stage SELECTIVE,
+continue ON).
+
+To change them yourself: in Flycast enable the core option "Allow NAOMI
+service buttons" (RetroArch: L3 = TEST, R3 = SERVICE). Press TEST for the
+SYSTEM MENU, SERVICE moves the arrow, TEST selects or changes a value.
+Settings are written only when you leave with EXIT up to the SYSTEM MENU
+and EXIT again; then quit the emulator normally so it saves the file.
 
 ## Building the English CHD
 
@@ -141,6 +180,7 @@ To change a translation, edit the source and run `make_patch.sh`;
 | `tools/vfpatch.py` | make / apply `.vfp` patches |
 | `tools/euc_scan.py`, `tools/sjis_scan.py` | find Japanese strings |
 | `tools/build_tools.sh` | build the native helpers |
+| `nvram/vf4tuned.zip.nvmem` | Flycast backup RAM: network and card off |
 | `test/` | headless Flycast test harness (see below) |
 
 Editing a texture by hand:
@@ -170,7 +210,11 @@ cp vf4tuned.zip test/work/roms/
 test/run_path.sh gds-0036f_en.chd en 36    # screenshots in test/work/shots/
 ```
 
-Needs `retroarch`, `xvfb`, `xdotool`, `dbus-run-session`.
+Needs `retroarch`, `xvfb`, `xdotool`, `dbus-run-session`. `ra.sh start`
+copies `nvram/vf4tuned.zip.nvmem` into the work folder when none is
+there; `ra.sh quit` closes RetroArch cleanly so the backup RAM is saved.
+The core options use the `reicast_` prefix of the libretro core, and
+`global_core_options` makes RetroArch read `test/core.opt`.
 
 ## Technical notes
 
