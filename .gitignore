@@ -1,0 +1,6 @@
+test/work/
+__pycache__/
+*.pyc
+*.chd
+*.dec
+*.enc
