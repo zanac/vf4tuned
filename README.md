@@ -13,8 +13,9 @@ normal CHD that Flycast loads in place of the original one.
 
 ![VF4 Final Tuned English, Challenge Mode](screenshots/gameplay.png)
 
-*A Challenge Mode mission in the English build: the mission objective
-"Beat foe!" in the HUD.*
+*A Challenge Mode mission in the English build, with the offline
+settings of `nvram/` (network and card off): the objective "Beat foe!"
+and the technique icons "T A1 / T B1" in the HUD.*
 
 ## Status
 
