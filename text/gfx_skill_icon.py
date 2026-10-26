@@ -3,7 +3,7 @@
 #
 # The kanji is dark engraving inside a ~17 px disc at the left of each icon. The disc is refilled
 # row by row with the icon's own shading (taken from the bright, kanji-free pixels of the same row),
-# then a "T" is engraved with the darkest colour of the original glyph.
+# then a white "T" is drawn with a 1 px shadow in the darkest colour of the original glyph.
 import os, shutil, sys
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
@@ -44,8 +44,10 @@ def fix_disc(a, box):
     bb = d.textbbox((0, 0), "T", font=f)
     d.text(((w * 4 - (bb[2] - bb[0])) / 2 - bb[0], (h * 4 - (bb[3] - bb[1])) / 2 - bb[1]), "T", fill=255, font=f)
     m = np.asarray(t.resize((w, h), Image.LANCZOS)).astype(np.float32) / 255
+    sh = np.zeros_like(m); sh[1:, 1:] = m[:-1, :-1]                       # 1 px drop shadow
     o = np.asarray(out).astype(np.float32)
-    o[..., :3] = o[..., :3] * (1 - m[..., None]) + dark * m[..., None]
+    o[..., :3] = o[..., :3] * (1 - sh[..., None] * 0.8) + dark * sh[..., None] * 0.8
+    o[..., :3] = o[..., :3] * (1 - m[..., None]) + 255 * m[..., None]     # white T
     o[..., 3] = reg[..., 3]
     a[y0:y1, x0:x1] = np.clip(o, 0, 255).astype(np.uint8)
 

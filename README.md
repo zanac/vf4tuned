@@ -139,8 +139,8 @@ Input and output:
 | `gds-0036f.chd` (original) | 68edece4239e5adfef9df143defb711ff2b4db72 |
 | `317-0387-com.pic` (CRC32 8728aeaa) | 07983ab41d143f845c3150dfc9b7301968708e18 |
 | `VF41_S.BIN` decrypted, original | 5b385f6b26fef97a769581769feb3319f39dd52c |
-| `VF41_S.BIN` decrypted, English | a374cc99af15718667ff467428e401a62db4a006 |
-| `gds-0036f_en.chd` | 2054a6daa341bcdab47813d7e0d7b77a48f36ec1 |
+| `VF41_S.BIN` decrypted, English | 04df48b3a56bc5703005c694a38cad7f2131daf3 |
+| `gds-0036f_en.chd` | f08560fa559aea191183fa2570a0d412a51d6813 |
 
 The build is reproducible: the same input gives the same CHD.
 
@@ -162,7 +162,7 @@ byte to `patch/vf4ft_en.vfp`.
 | `text/strings_cap.tsv` | every EUC-JP string of the program with the bytes available for it |
 | `text/gfx_spec.py` | the graphics edits: texture, box, English text, style |
 | `text/gfx_mode_sel.py`, `text/gfx_sel_ft.py` | the two mode select textures (styled by hand) |
-| `text/gfx_skill_icon.py` | the technique icon: 技 replaced by an engraved "T" |
+| `text/gfx_skill_icon.py` | the technique icon: 技 replaced by a white "T" |
 
 To change a translation, edit the source and run `make_patch.sh`;
 `tools/apply_text.py` refuses lines longer than their slot.
