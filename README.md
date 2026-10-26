@@ -29,6 +29,7 @@ normal CHD that Flycast loads in place of the original one.
 | Card statistics labels, VF.NET rival bookmark hint, network badges | English graphics, not reachable without a card/network |
 | Champion / challenger phrases (win streaks) | English graphics, not checked in the emulator |
 | Staff roll trademark line | English |
+| Technique icon in the fight HUD (技 → T, next to A1/B1) | English graphics, checked in the emulator |
 | Rank and title names (十級 … 十段, 拳聖, 覇王 …) | **Japanese** (see below) |
 | Title (通り名) kanji sprites, prize battle banners, region emblems | **Japanese** |
 
@@ -41,6 +42,8 @@ Known limits:
 - The in-game font draws a few lowercase letters in its own style (the
   "g" in "Tough" looks unusual). That is the original font.
 - The test menu was already in English and is untouched.
+- The fighting-style kanji on the character profiles (八極拳, 柔道 …) are
+  kept: each one already has its English name under it.
 
 ## Screenshots
 
@@ -55,6 +58,7 @@ Flycast with the patched CHD.
 | Mission HUD | ![mission HUD](screenshots/mission_hud.png) |
 | Route selection title | ![route title](screenshots/route_title.png) |
 | Route selection | ![route selection](screenshots/route_select.png) |
+| Technique icon (技 → T) | ![technique icon](screenshots/skill_icon.png) |
 
 All the redrawn textures, original on the left and English on the right
 (upright, on a dark background):
@@ -135,8 +139,8 @@ Input and output:
 | `gds-0036f.chd` (original) | 68edece4239e5adfef9df143defb711ff2b4db72 |
 | `317-0387-com.pic` (CRC32 8728aeaa) | 07983ab41d143f845c3150dfc9b7301968708e18 |
 | `VF41_S.BIN` decrypted, original | 5b385f6b26fef97a769581769feb3319f39dd52c |
-| `VF41_S.BIN` decrypted, English | d7ad4561660d9ef6e99f359f9d453bd670396ccc |
-| `gds-0036f_en.chd` | a5479801432385d95d5caea70a7c6f1015589872 |
+| `VF41_S.BIN` decrypted, English | a374cc99af15718667ff467428e401a62db4a006 |
+| `gds-0036f_en.chd` | 2054a6daa341bcdab47813d7e0d7b77a48f36ec1 |
 
 The build is reproducible: the same input gives the same CHD.
 
@@ -158,6 +162,7 @@ byte to `patch/vf4ft_en.vfp`.
 | `text/strings_cap.tsv` | every EUC-JP string of the program with the bytes available for it |
 | `text/gfx_spec.py` | the graphics edits: texture, box, English text, style |
 | `text/gfx_mode_sel.py`, `text/gfx_sel_ft.py` | the two mode select textures (styled by hand) |
+| `text/gfx_skill_icon.py` | the technique icon: 技 replaced by an engraved "T" |
 
 To change a translation, edit the source and run `make_patch.sh`;
 `tools/apply_text.py` refuses lines longer than their slot.

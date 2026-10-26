@@ -18,7 +18,7 @@ SimpleFlashFS entry (size, data CRC-16/XMODEM at +0x10) and, for .gz entries, re
 import binascii, gzip, io, json, os, struct, sys, zlib
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import pvrtex, sffs, spr_sheets
-from PIL import Image, ImageChops
+from PIL import Image
 
 UPRIGHT = Image.Transpose.ROTATE_90      # stored -> screen
 STORED = Image.Transpose.ROTATE_270      # screen -> stored
@@ -94,7 +94,7 @@ def cmd_import(d, pngdir):
             if img.size != (w, h):
                 raise SystemExit("%s: size %s, expected %dx%d (upright %dx%d)" % (t["png"], img.size, w, h, h, w))
             cur = pvrtex.decode_rec(content, w, h, f, o)
-            if ImageChops.difference(cur, img).getbbox() is None:
+            if cur.tobytes() == img.tobytes():        # (ImageChops.difference ignores RGB when alpha is equal)
                 continue
             enc = pvrtex.encode_rec(img, w, h, f)
             content[o:o + len(enc)] = enc

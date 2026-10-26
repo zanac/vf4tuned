@@ -22,7 +22,7 @@ rm -rf "$T/disc.gdi" "$T"/disc0* "$T/VF41_S.enc"
 cp "$T/orig.dec" "$T/en.dec"
 
 echo "[2/5] exporting the sprite sets that get edited"
-for s in spr_card.bin spr_comm.bin.gz spr_sel_ft.bin spr_chlg.bin spr_game.bin spr_staff.bin spr_mode_sel.bin; do
+for s in spr_card.bin spr_comm.bin.gz spr_sel_ft.bin spr_chlg.bin spr_game.bin spr_staff.bin spr_mode_sel.bin spr_cmn_skill.bin; do
   python3 "$HERE/tools/sprtool.py" export "$T/orig.dec" "$s" "$T/exp/${s%%.*}" >/dev/null
 done
 
@@ -30,6 +30,7 @@ echo "[3/5] redrawing graphics"
 python3 "$HERE/tools/redraw.py" "$HERE/text/gfx_spec.py" "$T/exp" "$T/edit" 2>/dev/null
 python3 "$HERE/text/gfx_mode_sel.py" "$T/exp/spr_mode_sel" "$T/edit/spr_mode_sel"
 python3 "$HERE/text/gfx_sel_ft.py" "$T/exp/spr_sel_ft" "$T/edit/spr_sel_ft"   # texture 1 (gfx_spec edits texture 0)
+python3 "$HERE/text/gfx_skill_icon.py" "$T/exp/spr_cmn_skill" "$T/edit/spr_cmn_skill"
 
 echo "[4/5] writing text and graphics"
 python3 "$HERE/tools/apply_text.py" "$T/en.dec" "$HERE/text/translations.py" "$HERE/text/strings_cap.tsv"
