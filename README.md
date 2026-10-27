@@ -17,6 +17,10 @@ normal CHD that Flycast loads in place of the original one.
 settings of `nvram/` (network and card off): the objective "Beat foe!"
 and the technique icons "T A1 / T B1" in the HUD.*
 
+## Support
+Hey dude! Help me out for a couple of :beers: or a :coffee:!<br/>
+[![coffee](https://www.buymeacoffee.com/assets/img/custom_images/black_img.png)](https://bmc.link/zanac)
+
 ## Status
 
 | Part | State |
