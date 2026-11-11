@@ -168,6 +168,7 @@ byte to `patch/vf4ft_en.vfp`.
 | `text/gfx_spec.py` | the graphics edits: texture, box, English text, style |
 | `text/gfx_mode_sel.py`, `text/gfx_sel_ft.py` | the two mode select textures (styled by hand) |
 | `text/gfx_skill_icon.py` | the technique icon: 技 replaced by a white "T" |
+| `text/gfx_profname.py` | optional, not in the release: erases the Japanese fighting-style names on the profile cards (the English ones stay) |
 
 To change a translation, edit the source and run `make_patch.sh`;
 `tools/apply_text.py` refuses lines longer than their slot.
@@ -190,6 +191,10 @@ To change a translation, edit the source and run `make_patch.sh`;
 | `tools/vfpatch.py` | make / apply `.vfp` patches |
 | `tools/euc_scan.py`, `tools/sjis_scan.py` | find Japanese strings |
 | `tools/build_tools.sh` | build the native helpers |
+| `tools/research/bands.py`, `comps.py`, `zoom.py` | find the line, word and glyph boxes of a texture (for `text/gfx_spec.py`) |
+| `tools/research/upsheet.py` | contact sheet of an exported sprite set, with texture indexes |
+| `tools/research/review.py` | before/after sheet of the graphics edits (`screenshots/graphics_before_after.png`) |
+| `tools/research/glyph_id.py` | identifies the characters of the `spr_asc` font by template matching |
 | `nvram/vf4tuned.zip.nvmem` | Flycast backup RAM: network and card off |
 | `test/` | headless Flycast test harness (see below) |
 
